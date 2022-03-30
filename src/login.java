@@ -1,65 +1,106 @@
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.*;
+import java.sql.*;
+import java.awt.*;
 
-public class login implements ActionListener {
+public class login extends JFrame {
 
-    private static JLabel userlabel;
-    private static JTextField userText;
-    private static JLabel passwordLabel;
-    private static JPasswordField passwordText;
-    private static JButton button;
-    private static JLabel success;
+    private JPanel contentPane;
+    private JTextField txtLoginC;
+    private JButton btnCancel;
+    private JPasswordField txtSenhaC;
 
     public static void main(String[] args) {
-
-        JPanel panel = new JPanel();
-        JFrame frame = new JFrame();
-        frame.setSize(350, 200);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        frame.add(panel);
-
-        panel.setLayout(null);
-
-        userlabel = new JLabel("User");
-        userlabel.setBounds(10, 20, 80, 25);
-        panel.add(userlabel);
-
-        userText = new JTextField(20);
-        userText.setBounds(100, 20, 165, 25);
-        panel.add(userText);
-
-        passwordLabel = new JLabel("Password");
-        passwordLabel.setBounds(10, 50, 80, 25);
-        panel.add(passwordLabel);
-
-        passwordText = new JPasswordField();
-        passwordText.setBounds(100, 50, 165, 25);
-        panel.add(passwordText);
-        panel.setVisible(true);
-
-        button = new JButton("Login");
-        button.setBounds(10, 80, 80, 25);
-        button.getAction();
-        panel.add(button);
-
-        success = new JLabel("");
-        success.setBounds(10, 110, 300, 25);
-        panel.add(success);
-
-        frame.setVisible(true);
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    login frame = new login();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String user = userText.getText();
-        String password = passwordText.getText();
+    public login() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 450, 300);
+        contentPane = new JPanel();
+        contentPane.setBackground(Color.BLUE);
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
 
-        if (user.equals("lucca") && password.equals("123456")) {
-            success.setText("Login successfful!");
-        }
+        JButton btnEnter = new JButton("ENTER");
+        btnEnter.setFont(new Font("Arial Black", Font.PLAIN, 11));
+        btnEnter.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
 
+            }
+        });
+        btnEnter.setBounds(223, 216, 89, 23);
+        contentPane.add(btnEnter);
+
+        btnCancel = new JButton("CANCEL");
+        btnCancel.setFont(new Font("Arial Black", Font.PLAIN, 11));
+        btnCancel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        btnCancel.setForeground(Color.RED);
+        btnCancel.setBounds(124, 216, 89, 23);
+        contentPane.add(btnCancel);
+
+        JLabel lblNewLabel = new JLabel("Senha");
+        lblNewLabel.setForeground(Color.BLACK);
+        lblNewLabel.setFont(new Font("Arial Black", Font.PLAIN, 13));
+        lblNewLabel.setBounds(95, 119, 62, 20);
+        contentPane.add(lblNewLabel);
+
+        txtLoginC = new JTextField();
+        txtLoginC.setBounds(167, 80, 122, 20);
+        contentPane.add(txtLoginC);
+        txtLoginC.setColumns(10);
+
+        JLabel lblNewLabel2 = new JLabel("Login");
+        lblNewLabel2.setForeground(Color.BLACK);
+        lblNewLabel2.setFont(new Font("Arial Black", Font.PLAIN, 13));
+        lblNewLabel2.setBounds(95, 80, 62, 23);
+        contentPane.add(lblNewLabel2);
+
+        JCheckBox txtExibirSenha = new JCheckBox("Exibir Senha");
+        txtExibirSenha.setBackground(Color.BLUE);
+        txtExibirSenha.setBounds(167, 146, 97, 23);
+        contentPane.add(txtExibirSenha);
+
+        txtSenhaC = new JPasswordField();
+
+        txtExibirSenha.addMouseListener(new MouseAdapter() {
+
+            public void mouseClicked(MouseEvent arg0) {
+
+                if (txtExibirSenha.isSelected()) {
+                    txtSenhaC.setEchoChar((char) 0);
+
+                } else {
+
+                    txtSenhaC.setEchoChar('*');
+
+                }
+            }
+        });
+
+        txtSenhaC.setBounds(167, 119, 122, 20);
+        contentPane.add(txtSenhaC);
+
+        JLabel logo = new JLabel("");
+        logo.setHorizontalAlignment(SwingConstants.CENTER);
+        logo.setBounds(299, 11, 125, 99);
+        contentPane.add(logo);
     }
 }
